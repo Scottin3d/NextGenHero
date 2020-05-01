@@ -9,16 +9,21 @@ using UnityEngine.UI;
 public class FireEgg : MonoBehaviour {
 
   // UI slider for interaction
-  public UIAPI uiapi;
-  //public Slider slider;
+  [SerializeField]
+  UIAPI uiapi;
+
   // fire rate cool down
-  private float fireRate = 1f;
+  float fireRate = 1f;
+  bool rapidFire;
 
   // public components
   public Transform EggFireSpawn;
   public GameObject EggPreFab;
 
-  private void Awake() {
+  private void Start() {
+    uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
+    rapidFire = false;
+
     uiapi.SetSliderMax(fireRate);
     //slider.maxValue = RespawnTime;
     uiapi.SetSlider(fireRate);
@@ -30,9 +35,23 @@ public class FireEgg : MonoBehaviour {
   void Update() {
     // shoot projectile
     if (Input.GetKeyDown(KeyCode.Space)) {
-      if (uiapi.GetSliderValue() == fireRate) {
+      if (!rapidFire) {
+        if (uiapi.GetSliderValue() == fireRate) {
+          ProcessEggSpwan();
+        }
+      } else {
         ProcessEggSpwan();
       }
+    }
+
+    // rapid fire -- no wait for egg firing
+    if (Input.GetKeyDown(KeyCode.R)) {
+      if (rapidFire) {
+        rapidFire = false;
+      } else {
+        rapidFire = true;
+      }
+      uiapi.RapidFire(rapidFire);
     }
   }
 

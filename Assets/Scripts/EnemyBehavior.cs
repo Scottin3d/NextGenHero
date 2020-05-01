@@ -37,7 +37,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     headingIndex = 0;
     waypointThreshold = 5f;
-    flightOrder = false;
+    flightOrder = true;
     heading = waypoints.GetWaypoint(headingIndex).transform;
     NewDirection();
   }
@@ -89,7 +89,11 @@ public class EnemyBehavior : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    
+    // hit by player
+    if (collision.gameObject.tag == "Hero") {
+      Debug.Log("Hit by player");
+      uiapi.IncEnemies();
+    }
     
   }
 

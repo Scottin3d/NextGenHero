@@ -14,6 +14,8 @@ public class UIAPI : MonoBehaviour {
   int eggCount;
   public Text enemies;
   int enemyCount;
+  public Text rapidFire;
+  string fireRate;
 
   // Start is called before the first frame update
   void Start() {
@@ -21,6 +23,7 @@ public class UIAPI : MonoBehaviour {
     movementType = "WASD";
     eggCount = 0;
     enemyCount = 0;
+    fireRate = "Off";
 
   }
 
@@ -31,7 +34,7 @@ public class UIAPI : MonoBehaviour {
     hero.text = movementType;
     eggs.text = eggCount.ToString();
     enemies.text = enemyCount.ToString();
-
+    rapidFire.text = fireRate;
   }
 
   /// 
@@ -88,4 +91,21 @@ public class UIAPI : MonoBehaviour {
     }
   }
 
+  ///
+  /// Enemies
+  /// 
+  public void IncEnemies() {
+    enemyCount++;
+  }
+
+  ///
+  /// RapidFire
+  /// 
+  public void RapidFire(bool on) {
+    if (on) {
+      fireRate = "On";
+    } else {
+      fireRate = "Off";
+    }
+  }
 }

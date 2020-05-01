@@ -17,7 +17,7 @@ public class HeroBehavior : MonoBehaviour {
   // control type
   bool useMouse;
   Vector3 mousePosition;
-  float mouseMoveSpeed = 0.1f;
+  float mouseMoveSpeed = 1f;
 
 
   // components
@@ -34,7 +34,9 @@ public class HeroBehavior : MonoBehaviour {
   /// input can be collected in update.
   /// </summary>
   private void FixedUpdate() {
-    UpdateMotion();
+    if (!useMouse) {
+      UpdateMotion();
+    }
   }
 
   private void Update() {
