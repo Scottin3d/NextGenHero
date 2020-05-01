@@ -7,18 +7,22 @@ using UnityEngine.UI;
 /// Instantiates a gameobject as the projectile when the fire button is pressed
 /// </summary>
 public class FireEgg : MonoBehaviour {
+
   // UI slider for interaction
-  public Slider slider;
+  public UIAPI uiapi;
+  //public Slider slider;
   // fire rate cool down
-  private float RespawnTime = 1f;
+  private float fireRate = 1f;
 
   // public components
   public Transform EggFireSpawn;
   public GameObject EggPreFab;
 
   private void Awake() {
-    slider.maxValue = RespawnTime;
-    slider.value = RespawnTime;
+    uiapi.SetSliderMax(fireRate);
+    //slider.maxValue = RespawnTime;
+    uiapi.SetSlider(fireRate);
+    //slider.value = RespawnTime;
 
   }
 
@@ -26,22 +30,16 @@ public class FireEgg : MonoBehaviour {
   void Update() {
     // shoot projectile
     if (Input.GetKeyDown(KeyCode.Space)) {
-      if (slider.value == RespawnTime) {
+      if (uiapi.GetSliderValue() == fireRate) {
         ProcessEggSpwan();
-        
       }
     }
-    FillSlider();
   }
 
   // instantiate prefab of projectile, set spawn time to 0
   private void ProcessEggSpwan() {
     Instantiate(EggPreFab, EggFireSpawn.position, EggFireSpawn.rotation);
-    slider.value = 0;
-  }
-
-  // fills the UI slider 
-  void FillSlider() {
-      slider.value += 1f * Time.deltaTime;
+    uiapi.SetSlider(0);
+    
   }
 }

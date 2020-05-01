@@ -7,8 +7,7 @@ using UnityEngine;
 /// spawned by the player.
 /// </summary>
 public class Egg : MonoBehaviour {
-  // public components
-  public ParticleSystem PSEgg;
+  UIAPI uiapi;
   // projectile speed
   public float Speed = 40f;
 
@@ -19,16 +18,11 @@ public class Egg : MonoBehaviour {
   // components 
   Rigidbody2D RB;
 
-  private void Awake() {
-    PSEgg.time = 0f;
-  }
+  
 
   private void Start() {
+    uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
 
-    /// <summary>
-    /// Using the camera to get the screen bounds.  This method allows for 
-    /// seemless screen scaling.  This is a modified version of the Boundary.cs
-    /// </summary>
     SH = Camera.main.orthographicSize;
     SW = SH * Camera.main.aspect;
 
@@ -36,8 +30,8 @@ public class Egg : MonoBehaviour {
 
     RB = GetComponent<Rigidbody2D>();
     RB.velocity = transform.up * Speed;
+    uiapi.IncEgg();
 
-    
   }
 
   void LateUpdate() {
@@ -49,6 +43,7 @@ public class Egg : MonoBehaviour {
     float Y = transform.transform.position.y;
 
     if (X <= -SW || X >= SW || Y <= -SH || Y >= SH) {
+      uiapi.DecEgg();
       Destroy(gameObject);
     }
 
@@ -58,8 +53,6 @@ public class Egg : MonoBehaviour {
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.gameObject.tag == "Enemy") {
       Debug.Log("Boom. Hit!");
-      PSEgg.time = 0f;
-      PSEgg.Play();
     }
   }
 }

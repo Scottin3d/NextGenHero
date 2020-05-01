@@ -22,10 +22,10 @@ public class Boundary : MonoBehaviour {
   // Start is called before the first frame update
   void Start() {
 
-    SH = MainCamera.orthographicSize;
-    SW = SH * MainCamera.aspect;
+    SH = Camera.main.orthographicSize;
+    SW = SH * Camera.main.aspect;
 
-    ScreenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
+    ScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 
   }
 
