@@ -39,4 +39,17 @@ public class Waypoints : MonoBehaviour {
     waypoints.Add(waypoint);
   }
 
+  public GameObject GetWaypoint(int waypointIndex) {
+    return waypoints[waypointIndex];
+  }
+
+  public GameObject GetRNGWaypoint() {
+    int rng = Random.Range(0, numberOfWaypoints - 1);
+    return waypoints[rng];
+  }
+
+  public int GetNumberOfWaypoints() {
+    return waypoints.Count;
+  }
+
 }

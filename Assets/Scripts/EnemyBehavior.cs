@@ -6,19 +6,39 @@ using System.Collections;
 /// mostly movement
 /// </summary>
 public class EnemyBehavior : MonoBehaviour {
+  // UI
+  [SerializeField]
+  UIAPI uiapi;
+
   // navigation
-  public Transform heading;
+  [SerializeField]
+  Waypoints waypoints;
+  [SerializeField]
+  Transform heading;
+  [SerializeField]
+  int headingIndex;
+  [SerializeField]
+  float waypointThreshold;
+  float distance;
+  bool flightOrder;
 
   // enemy speed
-	public float eSpeed = 25f;
+  public float eSpeed = 25f;
 
   // components
   private Rigidbody2D RB;
 
 	// Use this for initialization
 	void Start () {
+    // grab components
+    waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
+    uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
     RB = GetComponent<Rigidbody2D>();
 
+    headingIndex = 0;
+    waypointThreshold = 5f;
+    flightOrder = false;
+    heading = waypoints.GetWaypoint(headingIndex).transform;
     NewDirection();
   }
 
@@ -31,9 +51,46 @@ public class EnemyBehavior : MonoBehaviour {
     UpdateMotion();
   }
 
+  private void Update() {
+    if (Input.GetKeyDown(KeyCode.J)) {
+      if (flightOrder) {
+        flightOrder = false;
+        uiapi.SetWaypoint("Random");
+      } else {
+        flightOrder = true;
+        uiapi.SetWaypoint("Sequenced");
+      }
+    }
+  }
+
   // updates the position of the enemy
   private void UpdateMotion() {
     RB.MovePosition(transform.position + (transform.TransformDirection(Vector3.up) * eSpeed * Time.deltaTime));
+    distance = Vector3.Distance(heading.position, transform.position);
+
+    // if enemy reached waypoint, assign new waypoint
+    if (distance < waypointThreshold) {
+      if (flightOrder) {
+        // ordered flight pattern
+        headingIndex++;
+
+        // check overflow, reassign to 0 if at end
+        if (headingIndex > waypoints.GetNumberOfWaypoints() - 1) {
+          headingIndex = 0;
+        }
+
+        heading = waypoints.GetWaypoint(headingIndex).transform;
+      } else {
+        // random flight pattern
+        heading = waypoints.GetRNGWaypoint().transform;
+      }
+      NewDirection();
+    }
+  }
+
+  private void OnTriggerEnter2D(Collider2D collision) {
+    
+    
   }
 
   private void NewDirection() {

@@ -58,6 +58,13 @@ public class UIAPI : MonoBehaviour {
   }
 
   ///
+  /// Waypoints
+  /// 
+  public void SetWaypoint(string str) {
+    waypointType = str;
+  }
+
+  ///
   /// Hero Movement
   ///
   public void SetHeroMovement(string str) {
