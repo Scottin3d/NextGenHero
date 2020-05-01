@@ -16,6 +16,9 @@ public class UIAPI : MonoBehaviour {
   int enemyCount;
   public Text rapidFire;
   string fireRate;
+  public Text fps;
+  float deltaTime;
+  float FPS;
 
   // Start is called before the first frame update
   void Start() {
@@ -35,6 +38,12 @@ public class UIAPI : MonoBehaviour {
     eggs.text = eggCount.ToString();
     enemies.text = enemyCount.ToString();
     rapidFire.text = fireRate;
+
+
+    deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+    FPS = 1.0f / deltaTime;
+    FPS = Mathf.Ceil(FPS);
+    fps.text = FPS.ToString();
   }
 
   /// 

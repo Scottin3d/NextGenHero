@@ -8,7 +8,8 @@ public class Waypoints : MonoBehaviour {
   [SerializeField]
   SpawnPoints spawnPoints;
   [SerializeField]
-  GameObject waypointPrefab;
+
+  public GameObject waypointPrefab;
 
   int numberOfWaypoints = 6;
   [SerializeField]
@@ -16,9 +17,10 @@ public class Waypoints : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
-    waypoints = new List<GameObject>();
     spawnPoints = GameObject.Find("SpawnPoints").GetComponent<SpawnPoints>();
-    waypointPrefab = GameObject.Find("WaypointPrefab");
+    //waypointPrefab = GameObject.Find("WaypointPrefab");
+
+    waypoints = new List<GameObject>();
     InitializeWaypoints();
   }
 
@@ -37,6 +39,7 @@ public class Waypoints : MonoBehaviour {
     waypoint.GetComponent<SpriteRenderer>().sprite = sprite;
 
     waypoints.Add(waypoint);
+    waypoint.transform.SetParent(this.transform);
   }
 
   public GameObject GetWaypoint(int waypointIndex) {

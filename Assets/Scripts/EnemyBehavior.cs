@@ -6,9 +6,10 @@ using System.Collections;
 /// mostly movement
 /// </summary>
 public class EnemyBehavior : MonoBehaviour {
-  // UI
+
+  // spawn controller
   [SerializeField]
-  UIAPI uiapi;
+  EnemiesController enemiesController;
 
   // navigation
   [SerializeField]
@@ -32,13 +33,17 @@ public class EnemyBehavior : MonoBehaviour {
 	void Start () {
     // grab components
     waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
-    uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
+    enemiesController = GameObject.Find("Enemies").GetComponent<EnemiesController>();
     RB = GetComponent<Rigidbody2D>();
 
     headingIndex = 0;
     waypointThreshold = 5f;
-    flightOrder = true;
-    heading = waypoints.GetWaypoint(headingIndex).transform;
+    flightOrder = enemiesController.FlightOrder();
+    if (flightOrder) {
+      heading = waypoints.GetWaypoint(headingIndex).transform;
+    } else {
+      heading = waypoints.GetRNGWaypoint().transform;
+    }
     NewDirection();
   }
 
@@ -51,22 +56,11 @@ public class EnemyBehavior : MonoBehaviour {
     UpdateMotion();
   }
 
-  private void Update() {
-    if (Input.GetKeyDown(KeyCode.J)) {
-      if (flightOrder) {
-        flightOrder = false;
-        uiapi.SetWaypoint("Random");
-      } else {
-        flightOrder = true;
-        uiapi.SetWaypoint("Sequenced");
-      }
-    }
-  }
-
   // updates the position of the enemy
   private void UpdateMotion() {
     RB.MovePosition(transform.position + (transform.TransformDirection(Vector3.up) * eSpeed * Time.deltaTime));
     distance = Vector3.Distance(heading.position, transform.position);
+    flightOrder = enemiesController.FlightOrder();
 
     // if enemy reached waypoint, assign new waypoint
     if (distance < waypointThreshold) {
@@ -92,9 +86,8 @@ public class EnemyBehavior : MonoBehaviour {
     // hit by player
     if (collision.gameObject.tag == "Hero") {
       Debug.Log("Hit by player");
-      uiapi.IncEnemies();
+      enemiesController.DestroyEnemy(this.gameObject);
     }
-    
   }
 
   private void NewDirection() {

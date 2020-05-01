@@ -35,10 +35,21 @@ public class SpawnPoints : MonoBehaviour {
 
   public Vector3 GetRNGWaypointSpawn() {
     int rng = Random.Range(0, numberOfSpawns -1);
+    int safetyBreak = 0;
     while (spawnFilled[rng]) {
       rng = Random.Range(0, numberOfSpawns - 1);
+      safetyBreak++;
+      if (safetyBreak > numberOfSpawns) {
+        Debug.Log("Error calling waypoint spawn");
+        break;
+      }
     }
     spawnFilled[rng] = true;
+    return spawnPoints[rng];
+  }
+
+  public Vector3 GetRNGSpawn() {
+    int rng = Random.Range(0, numberOfSpawns - 1);
     return spawnPoints[rng];
   }
 }
