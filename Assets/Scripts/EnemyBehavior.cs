@@ -6,6 +6,9 @@ using System.Collections;
 /// mostly movement
 /// </summary>
 public class EnemyBehavior : MonoBehaviour {
+  // navigation
+  public Transform heading;
+
   // enemy speed
 	public float eSpeed = 25f;
 
@@ -15,7 +18,9 @@ public class EnemyBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     RB = GetComponent<Rigidbody2D>();
-	}
+
+    NewDirection();
+  }
 
   /// <summary>
   /// because I am controlling the movement with the rigidbody,
@@ -29,5 +34,11 @@ public class EnemyBehavior : MonoBehaviour {
   // updates the position of the enemy
   private void UpdateMotion() {
     RB.MovePosition(transform.position + (transform.TransformDirection(Vector3.up) * eSpeed * Time.deltaTime));
+  }
+
+  private void NewDirection() {
+    Vector2 dir = new Vector2(heading.position.x - transform.position.x,
+                              heading.position.y - transform.position.y);
+    transform.up = dir;
   }
 }

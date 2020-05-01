@@ -58,6 +58,13 @@ public class UIAPI : MonoBehaviour {
   }
 
   ///
+  /// Hero Movement
+  ///
+  public void SetHeroMovement(string str) {
+    movementType = str;
+  }
+
+  ///
   /// Egg
   ///
   // increase count
