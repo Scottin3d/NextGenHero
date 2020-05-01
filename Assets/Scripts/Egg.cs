@@ -52,7 +52,14 @@ public class Egg : MonoBehaviour {
   // if the egg project collides with the 'enemy', trigger particle effectrs
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.gameObject.tag == "Enemy") {
-      Debug.Log("Boom. Hit!");
+      Debug.Log("Hit enemy");
+      uiapi.DecEgg();
+      Destroy(gameObject);
+    }
+    if (collision.gameObject.tag == "Waypoint") {
+      Debug.Log("Hit Waypoint");
+      uiapi.DecEgg();
+      Destroy(gameObject);
     }
   }
 }
