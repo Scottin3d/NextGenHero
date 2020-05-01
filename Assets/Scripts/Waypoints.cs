@@ -15,13 +15,28 @@ public class Waypoints : MonoBehaviour {
   [SerializeField]
   List<GameObject> waypoints;
 
+  bool hideWaypoints;
+
   // Start is called before the first frame update
   void Start() {
     spawnPoints = GameObject.Find("SpawnPoints").GetComponent<SpawnPoints>();
-    //waypointPrefab = GameObject.Find("WaypointPrefab");
-
+    hideWaypoints = false;
     waypoints = new List<GameObject>();
     InitializeWaypoints();
+  }
+
+  private void Update() {
+    if (Input.GetKeyDown(KeyCode.H)) {
+      foreach (GameObject point in waypoints) {
+        point.GetComponent<SpriteRenderer>().enabled = hideWaypoints;
+      }
+
+      if (hideWaypoints) {
+        hideWaypoints = false;
+      } else {
+        hideWaypoints = true;
+      }
+    }
   }
 
   // initialize waypoints

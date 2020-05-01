@@ -19,6 +19,8 @@ public class EnemiesController : MonoBehaviour {
   int maxNumberOfEnemies = 10;
 
   bool flightOrder;
+  [SerializeField]
+  float enemySpeed;
 
   // Start is called before the first frame update
   void Start() {
@@ -33,6 +35,7 @@ public class EnemiesController : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
+    enemySpeed = uiapi.GetEnemySpeed();
     numberOfEnemiesInScene = enemies.Count;
     if (numberOfEnemiesInScene < maxNumberOfEnemies) {
       SpawnEnemy();
@@ -71,5 +74,9 @@ public class EnemiesController : MonoBehaviour {
 
   public bool FlightOrder() {
     return flightOrder;
+  }
+
+  public float GetEnemySpeed() {
+    return enemySpeed;
   }
 }

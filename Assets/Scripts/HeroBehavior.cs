@@ -18,11 +18,10 @@ public class HeroBehavior : MonoBehaviour {
   bool useMouse;
   Vector3 mousePosition;
   float mouseMoveSpeed = 1f;
-
-
+  
   // components
   private Rigidbody2D RB;
-
+  Vector3 lastFrameVelocity;
   void Start() {
     uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
     RB = GetComponent<Rigidbody2D>();
@@ -85,10 +84,26 @@ public class HeroBehavior : MonoBehaviour {
         uiapi.SetHeroMovement("Mouse");
       }
     }
+
+    lastFrameVelocity = RB.velocity;
   }
 
   // updates the position of the player
   private void UpdateMotion() {
     RB.MovePosition(transform.position + (transform.TransformDirection(Vector3.up) * mHeroSpeed * HeroSpeedMultiplier * Time.deltaTime));
+  }
+
+  public void Reflect() {
+      Debug.Log("Edge Hit");
+
+    //transform.up = new Vector3(-transform.up.x, -transform.up.y, 0);
+    //transform.up = transform.right; // 45
+
+    transform.eulerAngles = new Vector3(transform.eulerAngles.x, 
+                                        transform.eulerAngles.y, 
+                                        transform.eulerAngles.z + 135f);
+    //transform.up = Vector3.Reflect(transform.up, Vector3.left);
+
+
   }
 }

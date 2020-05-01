@@ -6,17 +6,16 @@ public class WaypointTrigger : MonoBehaviour
 {
   public float respawnTime = 1f;
   SpriteRenderer spriteRenderer;
-  private Vector3 spawnPosition;
-  private float opacity = 1.0f;
+  Vector3 spawnPosition;
+  float opacity = 1.0f;
   Color sprite;
+
   // Start is called before the first frame update
   void Start() {
     spriteRenderer = GetComponent<SpriteRenderer>();
     sprite = spriteRenderer.color;
     spawnPosition = transform.position;
   }
-
-
 
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.gameObject.tag == "Egg") {
@@ -31,8 +30,6 @@ public class WaypointTrigger : MonoBehaviour
         sprite.a = opacity;
         spriteRenderer.color = sprite;
       }
-
-      
     }
   }
 

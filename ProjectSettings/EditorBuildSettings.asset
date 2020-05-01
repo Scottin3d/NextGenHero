@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: aacc0897d617a9c4aa6a99684ab79a22
+  - enabled: 1
     path: Assets/Scenes/NextGenHero.unity
     guid: 93545040397a74e4f9a50b2541cbe81e
   m_configObjects: {}

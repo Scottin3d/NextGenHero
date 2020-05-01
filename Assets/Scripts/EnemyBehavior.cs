@@ -24,7 +24,7 @@ public class EnemyBehavior : MonoBehaviour {
   bool flightOrder;
 
   // enemy speed
-  public float eSpeed = 25f;
+  public float eSpeed;
 
   // components
   private Rigidbody2D RB;
@@ -35,6 +35,7 @@ public class EnemyBehavior : MonoBehaviour {
     waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
     enemiesController = GameObject.Find("Enemies").GetComponent<EnemiesController>();
     RB = GetComponent<Rigidbody2D>();
+    eSpeed = enemiesController.GetEnemySpeed();
 
     headingIndex = 0;
     waypointThreshold = 5f;
@@ -58,6 +59,8 @@ public class EnemyBehavior : MonoBehaviour {
 
   // updates the position of the enemy
   private void UpdateMotion() {
+    eSpeed = enemiesController.GetEnemySpeed();
+
     RB.MovePosition(transform.position + (transform.TransformDirection(Vector3.up) * eSpeed * Time.deltaTime));
     distance = Vector3.Distance(heading.position, transform.position);
     flightOrder = enemiesController.FlightOrder();

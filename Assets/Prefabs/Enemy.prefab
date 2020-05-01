@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 1052027335569076290}
   - component: {fileID: 1052027335569076295}
   - component: {fileID: 1052027335569076289}
-  - component: {fileID: 1052027335569076291}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -163,26 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37619b42ba3acf441aa54f6d4db8f111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiapi: {fileID: 0}
+  enemiesController: {fileID: 0}
   waypoints: {fileID: 0}
   heading: {fileID: 0}
   headingIndex: 0
   waypointThreshold: 0
   eSpeed: 25
---- !u!114 &1052027335569076291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1052027335569076292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea41726fa28318c43a9eb9933a62d585, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainCamera: {fileID: 0}
-  Head: {fileID: 1052027335450609942}
-  ReflectAmound: 90
-  X: 0
-  Y: 0

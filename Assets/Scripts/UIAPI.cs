@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UIAPI : MonoBehaviour {
   public Slider slider;
+  GameObject sliderFill;
   public Text waypoints;
   string waypointType;
   public Text hero;
@@ -19,6 +20,8 @@ public class UIAPI : MonoBehaviour {
   public Text fps;
   float deltaTime;
   float FPS;
+  public Scrollbar enemySpeed;
+  float eSpeedValue;
 
   // Start is called before the first frame update
   void Start() {
@@ -28,6 +31,7 @@ public class UIAPI : MonoBehaviour {
     enemyCount = 0;
     fireRate = "Off";
 
+    sliderFill = GameObject.Find("Fill");
   }
 
   // Update is called once per frame
@@ -44,6 +48,8 @@ public class UIAPI : MonoBehaviour {
     FPS = 1.0f / deltaTime;
     FPS = Mathf.Ceil(FPS);
     fps.text = FPS.ToString();
+
+    
   }
 
   /// 
@@ -52,6 +58,13 @@ public class UIAPI : MonoBehaviour {
   // fills the UI slider 
   void FillSlider() {
     slider.value += 1f * Time.deltaTime;
+    if (slider.value == slider.maxValue) {
+      sliderFill.GetComponent<Image>().color = Color.green;
+    } else {
+      sliderFill.GetComponent<Image>().color = Color.red;
+
+    }
+
   }
 
   // set the max value to egg fire rate
@@ -116,5 +129,13 @@ public class UIAPI : MonoBehaviour {
     } else {
       fireRate = "Off";
     }
+  }
+
+  ///
+  /// Enemy Speed
+  /// 
+
+  public float GetEnemySpeed() {
+    return enemySpeed.value * 100f;
   }
 }

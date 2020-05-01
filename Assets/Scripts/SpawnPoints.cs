@@ -25,7 +25,7 @@ public class SpawnPoints : MonoBehaviour {
 
   Vector3 GenerateSpawn() {
     float spawnY = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).y, 
-                                Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y);
+                                Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height - 100)).y);
     float spawnX = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x, 
                                 Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
   
