@@ -9,6 +9,7 @@ TagManager:
   - Hero
   - Egg
   - Edge
+  - UI
   layers:
   - Default
   - TransparentFX

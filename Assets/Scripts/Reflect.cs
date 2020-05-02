@@ -10,10 +10,9 @@ public class Reflect : MonoBehaviour {
     heroBehavior = transform.parent.GetComponent<HeroBehavior>();
   }
 
-  
-  private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.gameObject.tag == "Edge") {
-      heroBehavior.Reflect();
+  private void OnCollisionEnter2D(Collision2D collision) {
+    if (collision.gameObject.name.Contains("Edge")) {
+      heroBehavior.Reflect(collision.GetContact(0).normal);
     }
   }
 }

@@ -6,8 +6,8 @@ using System.Collections;
 /// mostly movement
 /// </summary>
 public class EnemyBehavior : MonoBehaviour {
-
-  // spawn controller
+  // components
+  Rigidbody2D RB;
   [SerializeField]
   EnemiesController enemiesController;
 
@@ -18,18 +18,14 @@ public class EnemyBehavior : MonoBehaviour {
   Transform heading;
   [SerializeField]
   int headingIndex;
-  [SerializeField]
-  float waypointThreshold;
-  float distance;
+  
+  [Range(1f, 20f)]
+  public float waypointThreshold;
+  float distanceToWaypoint;
   bool flightOrder;
 
-  // enemy speed
-  public float eSpeed;
-
-  // components
-  private Rigidbody2D RB;
-
-	// Use this for initialization
+  float eSpeed;
+  
 	void Start () {
     // grab components
     waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
@@ -39,13 +35,8 @@ public class EnemyBehavior : MonoBehaviour {
 
     headingIndex = 0;
     waypointThreshold = 5f;
-    flightOrder = enemiesController.FlightOrder();
-    if (flightOrder) {
-      heading = waypoints.GetWaypoint(headingIndex).transform;
-    } else {
-      heading = waypoints.GetRNGWaypoint().transform;
-    }
-    NewDirection();
+
+    Spawn();
   }
 
   /// <summary>
@@ -57,16 +48,27 @@ public class EnemyBehavior : MonoBehaviour {
     UpdateMotion();
   }
 
+  void Spawn() {
+    flightOrder = enemiesController.FlightOrder();
+
+    if (flightOrder) {
+      heading = waypoints.GetWaypoint(headingIndex).transform;
+    } else {
+      heading = waypoints.GetRNGWaypoint().transform;
+    }
+    NewDirection();
+  }
+
   // updates the position of the enemy
   private void UpdateMotion() {
     eSpeed = enemiesController.GetEnemySpeed();
 
     RB.MovePosition(transform.position + (transform.TransformDirection(Vector3.up) * eSpeed * Time.deltaTime));
-    distance = Vector3.Distance(heading.position, transform.position);
+    distanceToWaypoint = Vector3.Distance(heading.position, transform.position);
     flightOrder = enemiesController.FlightOrder();
 
     // if enemy reached waypoint, assign new waypoint
-    if (distance < waypointThreshold) {
+    if (distanceToWaypoint < waypointThreshold) {
       if (flightOrder) {
         // ordered flight pattern
         headingIndex++;

@@ -36,9 +36,11 @@ public class FireEgg : MonoBehaviour {
     if (Input.GetKeyDown(KeyCode.Space)) {
       if (!rapidFire) {
         if (uiapi.GetSliderValue() == fireRate) {
+          //uiapi.IncEgg();
           ProcessEggSpwan();
         }
       } else {
+        //uiapi.IncEgg();
         ProcessEggSpwan();
       }
     }

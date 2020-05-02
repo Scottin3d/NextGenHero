@@ -6,21 +6,22 @@ using System.Collections;
 /// This script controls the player 'hero' movement
 /// </summary>
 public class HeroBehavior : MonoBehaviour {
-  public UIAPI uiapi;
+  // components
+  Rigidbody2D RB;
+  [SerializeField]
+  UIAPI uiapi;
+
   // speed modifierto preserve base speed
-  public float HeroSpeedMultiplier = 1f;
-  // base speed of player
-  private float mHeroSpeed = 20f;
-  // player rotation speed
-  private const float kHeroRotateSpeed = 22f;
+  [SerializeField]
+  float HeroSpeedMultiplier = 1f;
+  float mHeroSpeed = 20f;
+  const float kHeroRotateSpeed = 100f;
+
   // control type
   bool useMouse;
   Vector3 mousePosition;
-  float mouseMoveSpeed = 1f;
+  const float mouseMoveSpeed = 1f;
   
-  // components
-  private Rigidbody2D RB;
-  Vector3 lastFrameVelocity;
   void Start() {
     uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
     RB = GetComponent<Rigidbody2D>();
@@ -35,6 +36,7 @@ public class HeroBehavior : MonoBehaviour {
     if (!useMouse) {
       UpdateMotion();
     }
+    UpdateRotation();
   }
 
   private void Update() {
@@ -45,29 +47,23 @@ public class HeroBehavior : MonoBehaviour {
         if (HeroSpeedMultiplier == 0) {
           HeroSpeedMultiplier = 1;
         }
-        HeroSpeedMultiplier += 1 * Time.deltaTime;
+        HeroSpeedMultiplier += 1 * Time.smoothDeltaTime;
       }
       // slow down
       if (Input.GetKey(KeyCode.DownArrow)) {
         if (HeroSpeedMultiplier > 1) {
-          HeroSpeedMultiplier -= 1 * Time.deltaTime;
+          HeroSpeedMultiplier -= 1 * Time.smoothDeltaTime;
         }
       }
-      // turn local left
-      if (Input.GetKey(KeyCode.A)) {
-        RB.MoveRotation(RB.rotation + kHeroRotateSpeed * Time.deltaTime);
-      }
-      // turn local right
-      if (Input.GetKey(KeyCode.D)) {
-        RB.MoveRotation(RB.rotation + -kHeroRotateSpeed * Time.deltaTime);
-      }
     }
+
     // mouse control
     if (useMouse) {
-      mousePosition = Input.mousePosition;
-      mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-      transform.position = Vector2.Lerp(transform.position, mousePosition, mouseMoveSpeed);
+        mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        transform.position = Vector2.Lerp(transform.position, mousePosition, mouseMoveSpeed);
     }
+
     // stop motion
     if (Input.GetKeyDown(KeyCode.P)) {
       HeroSpeedMultiplier = 0;
@@ -83,26 +79,21 @@ public class HeroBehavior : MonoBehaviour {
         uiapi.SetHeroMovement("Mouse");
       }
     }
-
-    lastFrameVelocity = RB.velocity;
   }
 
-  // updates the position of the player
+  // player motion updates
   private void UpdateMotion() {
-    RB.MovePosition(transform.position + (transform.TransformDirection(Vector3.up) * mHeroSpeed * HeroSpeedMultiplier * Time.deltaTime));
+    RB.MovePosition(transform.position + (transform.up * mHeroSpeed * HeroSpeedMultiplier * Time.smoothDeltaTime));
   }
 
-  public void Reflect() {
-      Debug.Log("Edge Hit");
-
-    //transform.up = new Vector3(-transform.up.x, -transform.up.y, 0);
-    //transform.up = transform.right; // 45
-
-    transform.eulerAngles = new Vector3(transform.eulerAngles.x, 
-                                        transform.eulerAngles.y, 
-                                        transform.eulerAngles.z + 135f);
-    //transform.up = Vector3.Reflect(transform.up, Vector3.left);
-
-
+  private void UpdateRotation() {
+    RB.MoveRotation(RB.rotation + Input.GetAxis("Horizontal") * -1 * (kHeroRotateSpeed * Time.smoothDeltaTime));
   }
+
+  public void Reflect(Vector3 normal) {
+    transform.up = Vector2.Reflect(transform.up, normal);
+  }
+
+  
+
 }

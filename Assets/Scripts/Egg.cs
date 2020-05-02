@@ -7,7 +7,7 @@ using UnityEngine;
 /// spawned by the player.
 /// </summary>
 public class Egg : MonoBehaviour {
-  public UIAPI uiapi;
+  UIAPI uiapi;
   // projectile speed
   public float Speed = 40f;
 
@@ -21,7 +21,7 @@ public class Egg : MonoBehaviour {
   
 
   private void Start() {
-    //uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
+    uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
 
     SH = Camera.main.orthographicSize;
     SW = SH * Camera.main.aspect;
@@ -30,8 +30,8 @@ public class Egg : MonoBehaviour {
 
     RB = GetComponent<Rigidbody2D>();
     RB.velocity = transform.up * Speed;
-    uiapi.IncEgg();
 
+    uiapi.IncEgg();
   }
 
   void LateUpdate() {

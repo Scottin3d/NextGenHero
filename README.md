@@ -1,6 +1,6 @@
 # NextGenHero
 Scott Shirley  
-https://scottshirley.dev
+https://scottshirley.dev  
 CSS385  
 
 ## Overview
@@ -25,5 +25,5 @@ There are always 10 enemies in the world:
 -When a waypoint is moved, the enemy should move towards the new position  
 7. The display must include the game information as in the example (mouse/keyboard state, number of enemies touched, number of eggs in the world, number of enemies destroyed, cooldown for the egg)  
 ## Project Links
-You can play the game in a web browsers here: https://simmer.io/@scottin3d/next-gen-hero
-You can follow my project on GitHub here: https://github.com/Scottin3d/NextGenHero
+You can play the game in a web browsers here: https://simmer.io/@scottin3d/next-gen-hero  
+You can follow my project on GitHub here: https://github.com/Scottin3d/NextGenHero  

@@ -8,7 +8,8 @@ namespace UnityLibrary {
   public class ScreenEdgeColliders : MonoBehaviour {
     [Range(1f, 50f)]
     public float edgePadding = 5f;
-
+    [SerializeField]
+    Vector2 screenBounds;
     void Start() {
       AddCollider();
     }
@@ -18,6 +19,8 @@ namespace UnityLibrary {
 
       var cam = Camera.main;
       if (!cam.orthographic) { Debug.LogError("Camera.main is not Orthographic, failed to create edge colliders"); return; }
+
+      screenBounds = new Vector2(cam.pixelWidth - edgePadding, cam.pixelHeight - 100);
 
       var bottomLeft = (Vector2)cam.ScreenToWorldPoint(new Vector3(edgePadding, edgePadding, cam.nearClipPlane));
       var topLeft = (Vector2)cam.ScreenToWorldPoint(new Vector3(edgePadding, cam.pixelHeight - 100, cam.nearClipPlane));
