@@ -43,8 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ddf7c4330812440b989342ecb0c866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: {fileID: 0}
-  waypoints: {fileID: 0}
+  uiapi: {fileID: 2618761662164008209, guid: 6509c6167f2a56e40b47ad866db89001, type: 3}
+  spawnPoints: {fileID: 8474452789459890006, guid: 4f31ca1f7ac455d439e0b2e7fb558fbb,
+    type: 3}
+  waypoints: {fileID: 5505027675696775481, guid: 469d7bb2d7632ff4ab9dd722458928be,
+    type: 3}
   enemies: []
   enemyPrefab: {fileID: 1052027335569076292, guid: 044c7c942fdbf3642be98aadc5d2242e,
     type: 3}
+  enemySpeed: 0

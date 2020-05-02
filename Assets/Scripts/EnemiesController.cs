@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemiesController : MonoBehaviour {
-  [SerializeField]
-  UIAPI uiapi;
-  [SerializeField]
-  SpawnPoints spawnPoints;
-  [SerializeField]
-  Waypoints waypoints;
+  
+  public UIAPI uiapi;
+  public SpawnPoints spawnPoints;
+  public Waypoints waypoints;
 
   [SerializeField]
   List<GameObject> enemies;
@@ -24,9 +22,13 @@ public class EnemiesController : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
-    spawnPoints = GameObject.Find("SpawnPoints").GetComponent<SpawnPoints>();
-    waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
-    uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
+    //spawnPoints = GameObject.Find("SpawnPoints").GetComponent<SpawnPoints>();
+    //spawnPoints = (SpawnPoints)Resources.Load("Assets/Prefabs/SpawnPoints");
+    //waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
+    //waypoints = (Waypoints)Resources.Load("Assets/Prefabs/Waypoints");
+    //uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
+    //uiapi = UI.GetComponent<UIAPI>();
+
 
     enemies = new List<GameObject>();
     maxNumberOfEnemies = 10;
@@ -59,7 +61,7 @@ public class EnemiesController : MonoBehaviour {
 
   void SpawnEnemy() {
     Debug.Log("Spawning enemy");
-    Vector3 spawnPos = spawnPoints.GetRNGSpawn();
+    Vector3 spawnPos = spawnPoints.GetRNGWaypointSpawn(false);
     GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
 
     enemies.Add(enemy);

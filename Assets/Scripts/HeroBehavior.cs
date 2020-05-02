@@ -6,8 +6,7 @@ using System.Collections;
 /// This script controls the player 'hero' movement
 /// </summary>
 public class HeroBehavior : MonoBehaviour {
-  [SerializeField]
-  UIAPI uiapi;
+  public UIAPI uiapi;
   // speed modifierto preserve base speed
   public float HeroSpeedMultiplier = 1f;
   // base speed of player

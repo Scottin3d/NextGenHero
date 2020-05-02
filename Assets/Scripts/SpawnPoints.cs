@@ -7,6 +7,7 @@ public class SpawnPoints : MonoBehaviour {
   private int numberOfSpawns = 10;
   [SerializeField]
   Vector3[] spawnPoints;
+  [SerializeField]
   bool[] spawnFilled;
 
   // Start is called before the first frame update
@@ -21,6 +22,8 @@ public class SpawnPoints : MonoBehaviour {
       spawnPoints[i] = GenerateSpawn();
       spawnFilled[i] = false;
     }
+
+    Debug.Log("spawnPoints: " + spawnPoints.Length);
   }
 
   Vector3 GenerateSpawn() {
@@ -33,23 +36,31 @@ public class SpawnPoints : MonoBehaviour {
     return spawnPosition;
   }
 
-  public Vector3 GetRNGWaypointSpawn() {
+  public Vector3 GetRNGWaypointSpawn(bool wp) {
     int rng = Random.Range(0, numberOfSpawns -1);
-    int safetyBreak = 0;
-    while (spawnFilled[rng]) {
-      rng = Random.Range(0, numberOfSpawns - 1);
-      safetyBreak++;
-      if (safetyBreak > numberOfSpawns) {
-        Debug.Log("Error calling waypoint spawn");
-        break;
+    if (wp) {
+      Debug.Log("RNG Spawn: " + rng);
+      Debug.Log("spawnFilled: " + spawnFilled.Length);
+      Debug.Log("spawnPoints: " + spawnPoints.Length);
+      int safetyBreak = 0;
+      while (spawnFilled[rng]) {
+        rng = Random.Range(0, numberOfSpawns - 1);
+        safetyBreak++;
+        if (safetyBreak > numberOfSpawns) {
+          Debug.Log("Error calling waypoint spawn");
+          break;
+        }
       }
+      spawnFilled[rng] = true;
     }
-    spawnFilled[rng] = true;
     return spawnPoints[rng];
   }
 
   public Vector3 GetRNGSpawn() {
+
     int rng = Random.Range(0, numberOfSpawns - 1);
+    Debug.Log("RNG Spawn: " + rng);
+    Debug.Log("spawnPoints: " + spawnPoints.Length);
     return spawnPoints[rng];
   }
 }

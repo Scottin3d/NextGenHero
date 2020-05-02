@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Waypoints : MonoBehaviour {
   public Sprite[] sprites;
-
-  [SerializeField]
-  SpawnPoints spawnPoints;
-  [SerializeField]
-
+  public SpawnPoints spawnPoints;
   public GameObject waypointPrefab;
 
   int numberOfWaypoints = 6;
@@ -48,7 +44,7 @@ public class Waypoints : MonoBehaviour {
 
   // generate waypoint
   void GenerateWaypoint(Sprite sprite) {
-    Vector3 spawnPos = spawnPoints.GetRNGWaypointSpawn();
+    Vector3 spawnPos = spawnPoints.GetRNGWaypointSpawn(true);
     GameObject waypoint = Instantiate(waypointPrefab);
     waypoint.transform.position = spawnPos;
     waypoint.GetComponent<SpriteRenderer>().sprite = sprite;
