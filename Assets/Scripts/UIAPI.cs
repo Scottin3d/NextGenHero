@@ -23,6 +23,9 @@ public class UIAPI : MonoBehaviour {
   public Scrollbar enemySpeed;
   float eSpeedValue;
 
+
+  bool showControls;
+
   // Start is called before the first frame update
   void Start() {
     waypointType = "Sequenced";
@@ -49,6 +52,11 @@ public class UIAPI : MonoBehaviour {
     FPS = Mathf.Ceil(FPS);
     fps.text = FPS.ToString();
 
+    if (Input.GetKeyDown(KeyCode.I)) {
+      if (showControls) {
+
+      }
+    }
     
   }
 
