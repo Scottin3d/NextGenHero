@@ -80,11 +80,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &1052027335569076290
 CircleCollider2D:
@@ -162,8 +162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37619b42ba3acf441aa54f6d4db8f111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesController: {fileID: 0}
-  waypoints: {fileID: 0}
+  enemiesController: {fileID: 7700234688619766837, guid: 1e4519e63d907df41bc2152c0ef72ccb,
+    type: 3}
+  waypoints: {fileID: 5505027675696775481, guid: 469d7bb2d7632ff4ab9dd722458928be,
+    type: 3}
   heading: {fileID: 0}
   headingIndex: 0
   waypointThreshold: 0
