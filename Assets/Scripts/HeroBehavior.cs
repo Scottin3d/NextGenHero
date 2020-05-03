@@ -16,6 +16,7 @@ public class HeroBehavior : MonoBehaviour {
   float HeroSpeedMultiplier = 1f;
   float mHeroSpeed = 20f;
   const float kHeroRotateSpeed = 100f;
+  bool heroFreeze;
 
   // control type
   bool useMouse;
@@ -66,7 +67,12 @@ public class HeroBehavior : MonoBehaviour {
 
     // stop motion
     if (Input.GetKeyDown(KeyCode.P)) {
-      HeroSpeedMultiplier = 0;
+      if (!heroFreeze) {
+        HeroSpeedMultiplier = 0;
+      } else {
+        HeroSpeedMultiplier = 1f;
+      }
+      heroFreeze = !heroFreeze;
     }
 
     // change control

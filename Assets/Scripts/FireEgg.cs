@@ -7,9 +7,9 @@ using UnityEngine.UI;
 /// Instantiates a gameobject as the projectile when the fire button is pressed
 /// </summary>
 public class FireEgg : MonoBehaviour {
-
-  // UI slider for interaction
-  public UIAPI uiapi;
+  // components
+  [SerializeField]
+  UIAPI uiapi;
 
   // fire rate cool down
   float fireRate = 1f;
@@ -20,7 +20,7 @@ public class FireEgg : MonoBehaviour {
   public GameObject EggPreFab;
 
   private void Start() {
-    //uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
+    uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
     rapidFire = false;
 
     uiapi.SetSliderMax(fireRate);

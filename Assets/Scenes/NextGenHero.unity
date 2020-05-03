@@ -237,18 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e22c23b5e0b7f4e8706c4a873d5b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2102150432 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5505027675696775481, guid: 469d7bb2d7632ff4ab9dd722458928be,
-    type: 3}
-  m_PrefabInstance: {fileID: 5505027676935999835}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab50a9944e2291478b7d444bb291665, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1709599750555939043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1053,19 +1041,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7700234688619766837, guid: 1e4519e63d907df41bc2152c0ef72ccb,
         type: 3}
+      propertyPath: uiapi
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7700234688619766837, guid: 1e4519e63d907df41bc2152c0ef72ccb,
+        type: 3}
       propertyPath: spawnPoints
       value: 
-      objectReference: {fileID: 1899439598}
+      objectReference: {fileID: 0}
     - target: {fileID: 7700234688619766837, guid: 1e4519e63d907df41bc2152c0ef72ccb,
         type: 3}
       propertyPath: waypoints
       value: 
-      objectReference: {fileID: 2102150432}
-    - target: {fileID: 7700234688619766837, guid: 1e4519e63d907df41bc2152c0ef72ccb,
-        type: 3}
-      propertyPath: uiapi
-      value: 
-      objectReference: {fileID: 293974838}
+      objectReference: {fileID: 0}
     - target: {fileID: 7700234688619766842, guid: 1e4519e63d907df41bc2152c0ef72ccb,
         type: 3}
       propertyPath: m_Name

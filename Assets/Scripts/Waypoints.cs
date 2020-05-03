@@ -25,32 +25,39 @@ public class Waypoints : MonoBehaviour {
     if (Input.GetKeyDown(KeyCode.H)) {
       foreach (GameObject point in waypoints) {
         point.GetComponent<SpriteRenderer>().enabled = hideWaypoints;
-      }
+        point.GetComponent<BoxCollider2D>().enabled = hideWaypoints;
 
+      }
+      hideWaypoints = !hideWaypoints;
+      /*
       if (hideWaypoints) {
         hideWaypoints = false;
       } else {
         hideWaypoints = true;
       }
+      */
     }
   }
 
   // initialize waypoints
   void InitializeWaypoints() {
     for (int i = 0; i < numberOfWaypoints; i++) {
-      GenerateWaypoint(sprites[i]);
+      GameObject waypoint = GenerateWaypoint(sprites[i]);
+      waypoint.name = "Waypoint " + i;
+      waypoints.Add(waypoint);
     }
   }
 
   // generate waypoint
-  void GenerateWaypoint(Sprite sprite) {
+  GameObject GenerateWaypoint(Sprite sprite) {
     Vector3 spawnPos = spawnPoints.GetRNGWaypointSpawn(true);
     GameObject waypoint = Instantiate(waypointPrefab);
     waypoint.transform.position = spawnPos;
     waypoint.GetComponent<SpriteRenderer>().sprite = sprite;
 
-    waypoints.Add(waypoint);
+    
     waypoint.transform.SetParent(this.transform);
+    return waypoint;
   }
 
   public GameObject GetWaypoint(int waypointIndex) {

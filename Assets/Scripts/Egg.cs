@@ -7,29 +7,26 @@ using UnityEngine;
 /// spawned by the player.
 /// </summary>
 public class Egg : MonoBehaviour {
+  // components 
+  Rigidbody2D RB;
+  [SerializeField]
   UIAPI uiapi;
-  // projectile speed
+
   public float Speed = 40f;
 
   private Vector2 ScreenBounds;
-  private float SH;
-  private float SW;
-
-  // components 
-  Rigidbody2D RB;
-
-  
+  private float screenHeight;
+  private float screenWidth;
 
   private void Start() {
     uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
-
-    SH = Camera.main.orthographicSize;
-    SW = SH * Camera.main.aspect;
-
-    ScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-
     RB = GetComponent<Rigidbody2D>();
     RB.velocity = transform.up * Speed;
+
+    screenHeight = Camera.main.orthographicSize;
+    screenWidth = screenHeight * Camera.main.aspect;
+
+    ScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 
     uiapi.IncEgg();
   }
@@ -42,7 +39,7 @@ public class Egg : MonoBehaviour {
     float X = transform.transform.position.x;
     float Y = transform.transform.position.y;
 
-    if (X <= -SW || X >= SW || Y <= -SH || Y >= SH) {
+    if (X <= -screenWidth || X >= screenWidth || Y <= -screenHeight || Y >= screenHeight) {
       uiapi.DecEgg();
       Destroy(gameObject);
     }

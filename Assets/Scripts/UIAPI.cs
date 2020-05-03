@@ -25,6 +25,7 @@ public class UIAPI : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    Time.timeScale = 1f;
     waypointType = "Sequenced";
     movementType = "WASD";
     eggCount = 0;

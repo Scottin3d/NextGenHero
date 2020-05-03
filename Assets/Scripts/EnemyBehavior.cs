@@ -28,15 +28,25 @@ public class EnemyBehavior : MonoBehaviour {
   
 	void Start () {
     // grab components
-    waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
-    enemiesController = GameObject.Find("Enemies").GetComponent<EnemiesController>();
+    //enemiesController = GameObject.Find("Enemies").GetComponent<EnemiesController>();
+    enemiesController = transform.parent.GetComponent<EnemiesController>();
+    waypoints = enemiesController.GetWaypoinmts();
+    //waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
     RB = GetComponent<Rigidbody2D>();
     eSpeed = enemiesController.GetEnemySpeed();
 
     headingIndex = 0;
     waypointThreshold = 5f;
 
-    Spawn();
+    flightOrder = enemiesController.FlightOrder();
+
+    if (flightOrder) {
+      heading = waypoints.GetWaypoint(headingIndex).transform;
+    } else {
+      heading = waypoints.GetRNGWaypoint().transform;
+    }
+    NewDirection();
+    //Spawn();
   }
 
   /// <summary>
@@ -101,5 +111,9 @@ public class EnemyBehavior : MonoBehaviour {
     Vector2 dir = new Vector2(heading.position.x - transform.position.x,
                               heading.position.y - transform.position.y);
     transform.up = dir;
+  }
+
+  public void SetHeading(Transform head) {
+    heading = head;
   }
 }

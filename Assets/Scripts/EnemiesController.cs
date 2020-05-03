@@ -15,24 +15,26 @@ public class EnemiesController : MonoBehaviour {
 
   int numberOfEnemiesInScene = 0;
   int maxNumberOfEnemies = 10;
+  int enemieCount = 0;
 
   bool flightOrder;
   [SerializeField]
   float enemySpeed;
 
+  Transform headingOne;
   // Start is called before the first frame update
   void Start() {
-    //spawnPoints = GameObject.Find("SpawnPoints").GetComponent<SpawnPoints>();
+    spawnPoints = GameObject.Find("SpawnPoints").GetComponent<SpawnPoints>();
     //spawnPoints = (SpawnPoints)Resources.Load("Assets/Prefabs/SpawnPoints");
-    //waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
+    waypoints = GameObject.Find("Waypoints").GetComponent<Waypoints>();
     //waypoints = (Waypoints)Resources.Load("Assets/Prefabs/Waypoints");
-    //uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
+    uiapi = GameObject.Find("Canvas").GetComponent<UIAPI>();
     //uiapi = UI.GetComponent<UIAPI>();
 
 
     enemies = new List<GameObject>();
     maxNumberOfEnemies = 10;
-
+    headingOne = waypoints.GetWaypoint(0).transform;
   }
 
   // Update is called once per frame
@@ -53,10 +55,6 @@ public class EnemiesController : MonoBehaviour {
         uiapi.SetWaypoint("Sequenced");
       }
     }
-
-    if (Input.GetKeyDown(KeyCode.X)) {
-      SpawnEnemy();
-    }
   }
 
   void SpawnEnemy() {
@@ -64,8 +62,12 @@ public class EnemiesController : MonoBehaviour {
     Vector3 spawnPos = spawnPoints.GetRNGWaypointSpawn(false);
     GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
 
+
+    //enemy.GetComponent<EnemyBehavior>().SetHeading(headingOne);
     enemies.Add(enemy);
     enemy.transform.SetParent(this.transform);
+    enemy.name = "Enemy " + enemieCount;
+    enemieCount++;
   }
 
   public void DestroyEnemy(GameObject obj) {
@@ -80,5 +82,13 @@ public class EnemiesController : MonoBehaviour {
 
   public float GetEnemySpeed() {
     return enemySpeed;
+  }
+
+  public Waypoints GetWaypoinmts() {
+    return waypoints;
+  }
+
+  public EnemiesController GetEnemiesController() {
+    return this;
   }
 }

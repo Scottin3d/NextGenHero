@@ -1,0 +1,13 @@
+{
+"companyName": "DefaultCompany",
+"productName": "Next Gen Hero",
+"dataUrl": "BuildB02.data.unityweb",
+"wasmCodeUrl": "BuildB02.wasm.code.unityweb",
+"wasmFrameworkUrl": "BuildB02.wasm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"}
+}
